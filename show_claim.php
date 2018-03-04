@@ -12,6 +12,17 @@ function getemp_name($conn) {
         echo $row['emp_fname'] . " " . $row['emp_lname'];
     }
 }
+
+function getemp_id($conn) {
+
+    $sdd = $_SESSION['mem_password'];
+    $sql = " SELECT * FROM employee JOIN member WHERE emp_id=$sdd LIMIT 1 ";
+    $result = mysqli_query($conn, $sql);
+
+    while ($row = mysqli_fetch_array($result)) {
+        echo $row['emp_id'];
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -73,36 +84,38 @@ function getemp_name($conn) {
 
                     <form name="" action="add_data/add_ven_clam.php" method="post"> 
                         <input type="hidden" name="order_name" id="order_name">
+                        <input type="hidden" name="emp_id" id="emp_id" value="<?php echo getemp_id($conn); ?>">
+                        <input type="hidden" name="v_name" id="v_name">
                         <div class="form-group">
 
                             <?php
                             include('service/connect_db.php');
 
                             function runnum($conn) {
-                                $sql = " SELECT * FROM vendor_order ORDER BY  v_order_id  DESC LIMIT 0,1 ";
+                                $sql = " SELECT * FROM vendor_claim ORDER BY  v_claim_id  DESC LIMIT 0,1 ";
                                 $result = mysqli_query($conn, $sql);
 
                                 while ($row = mysqli_fetch_assoc($result)) {
 
-                                    echo $row['v_order_id'] + 1;
+                                    echo $row['v_claim_id'] + 1;
                                 }
                             }
                             ?>
                             <div class="row">
                                 <div class="col-md-6">
                                     <label >รหัสเคลม</label>
-                                    <input  type="text"    class="form-control"  name="ven_id" id="ven_id"   value="<?php echo runnum($conn); ?>"  readonly="readonly">
+                                    <input  type="text"    class="form-control"  name="v_claim_id" id="v_claim_id"   value="<?php echo runnum($conn); ?>"  readonly="readonly">
                                 </div>
                                 <div class="col-md-6">
                                     <label >ชื่อบริษัท</label>
-                                    <select id="chOrder"class="selectpicker form-control" name="v_name">
+                                    <select id="chOrder" class="selectpicker form-control" name="v_id">
                                         <?php
                                         include('service/connect_db.php');
                                         $sql = "SELECT * FROM vendor";
                                         $result = mysqli_query($conn, $sql);
                                         echo "<option value=''>เลือก</option>";
                                         while ($row = mysqli_fetch_assoc($result)) {
-                                            echo"<option value='{$row['v_id']}'>{$row['v_name']}</option>";
+                                            echo"<option value='{$row['v_id']}' venName='{$row['v_name']}'>{$row['v_name']}</option>";
                                         }
                                         ?> 
                                     </select>
@@ -113,7 +126,7 @@ function getemp_name($conn) {
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>วันเดือนปี</label>
-                                    <input type="date" class="form-control" required  name="date_name" id="date_name" >
+                                    <input type="date" class="form-control" required  name="v_claim_date" id="v_claim_date" >
                                 </div>
                                 <div class="col-md-6">
                                     <label >รหัสสั่งจอง</label>
@@ -160,13 +173,13 @@ function getemp_name($conn) {
 
                                                 <td>
                                                     <!-- รายการ -->
-                                                    <select class="selectpicker form-control" name="order1" id="order1" onchange="price_summary(this.id)">
+                                                    <select class="selectpicker form-control" name="order1" id="order1">
                                                     </select>
                                                 </td>
                                                 <td>
                                                     <!-- จำนวน -->
                                         <center>
-                                            <input type="text" class="form-control" name="name_num1" id="num1" value=0  onKeyUp="cal('order', 'num1', 'show_pri')" >
+                                            <input type="text" class="form-control" name="v_declaim_quantity" id="v_declaim_quantity" required>
                                         </center>
                                         </td>
                                         </tr>
@@ -176,6 +189,10 @@ function getemp_name($conn) {
                                 <div class="col-md-1">
                                 </div>
                             </div>
+                        </div>
+                        <div class="container">
+
+                            <textarea class="form-control form-rounded" name="detail_clam" rows="3"></textarea><br>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -215,6 +232,8 @@ function getemp_name($conn) {
         $("#order1").html('<option selected >กรุณาเลือกรหัสสั่งจอง</opition>');
         $("#v_order_id").html('<option selected >กรุณาเลือกชื่อบริษัท</opition>');
         $('#chOrder').change(function () {
+            var venName = $('option:selected', this).attr('venName');
+            $('#v_name').val(venName);
             $.ajax({
                 url: "get_data/get_vendor_id.php",
                 method: "POST",

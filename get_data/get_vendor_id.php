@@ -36,7 +36,7 @@ function get_p_name() {
         $sql = "SELECT * FROM vendor_detail_order WHERE v_order_id='" . $_POST['v_order_id'] . "' ";
         $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_array($result)) {
-            $output .= '<option value="' . $row["v_order_id"] . '">' . $row["p_name"] . '</option>';
+            $output .= '<option value="' . $row["p_name"] . '">' . $row["p_name"] . '</option>';
         }
         echo $output;
     }
