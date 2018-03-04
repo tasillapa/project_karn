@@ -63,7 +63,7 @@
               </div>
             </li>
              <li class="nav-item">
-              <a class="nav-link" href="#">สินค้า</a>
+                 <a class="nav-link" href="import_product.php">นำเข้าสินค้า</a>
             </li>
   
           </ul>

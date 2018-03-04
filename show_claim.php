@@ -53,7 +53,7 @@ function getemp_id($conn) {
 
     <body>
         <!-- Navigation -->
-        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+       <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="manage_vendor.php">หน้าแรก</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,13 +61,51 @@ function getemp_id($conn) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
-                                ออกจากระบบ
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                เกี่ยวกับการค้า
                             </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="data_vendor.php">ข้อมูลผู้ค้า</a>
+                                <a class="dropdown-item" href="vendor1.php">เพิ่มข้อมูลผู้ค้า</a>
+
+                            </div>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                การสั่งซื้อ
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="order_vendor2.php">การสั่งซื้อ</a>
+                                <a class="dropdown-item" href="detail_vendor.php">แสดงการสั่งซื้อ</a>
+
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                เคลมสินค้า
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="show_claim.php">เพิ่มข้อมูลการเคลม</a>
+                                <a class="dropdown-item" href="detail_claim.php">แสดงข้อมูลการเคลม</a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="import_product.php">นำเข้าสินค้า</a>
+                        </li>
+
                     </ul>
                 </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
+                            ออกจากระบบ
+                        </a>
+                    </li>
+                </ul>
             </div>
         </nav>
 
@@ -111,7 +149,7 @@ function getemp_id($conn) {
                                     <select id="chOrder" class="selectpicker form-control" name="v_id">
                                         <?php
                                         include('service/connect_db.php');
-                                        $sql = "SELECT * FROM vendor";
+                                        $sql = "SELECT * FROM vendor AS vd INNER JOIN vendor_order AS vo ON vd.v_id = vo.v_id";
                                         $result = mysqli_query($conn, $sql);
                                         echo "<option value=''>เลือก</option>";
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -149,18 +187,14 @@ function getemp_id($conn) {
                                 <div class="col-md-1">
 
                                 </div>
-
                                 <div class="col-md-10">
-                                    <!--   <th><button type="button" class="btn btn-primary" id ="addrow" onclick="AddRow()">เพิ่ม</button></th>
-                                      <th><button  type="button" class="btn btn-danger" id="removeRow"  >ลบ</button></th>
-                                      <br>
-                                      <br> -->
                                     <table class="table table-hover" border="2" id="table">
                                         <thead>
-                                            <tr align='center' border="2" >
+                                           <tr align='center' border="2">
                                                 <th scope="col" >ลำดับ</th>
                                                 <th scope="col">รายการ</th>
-                                                <th scope="col">จำนวน</th>
+                                                <th scope="col">จำนวนสินค้าทั้งหมด</th>
+                                                <th scope="col">จำนวนเคลม</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -176,6 +210,7 @@ function getemp_id($conn) {
                                                     <select class="selectpicker form-control" name="order1" id="order1">
                                                     </select>
                                                 </td>
+                                                <td  align="center" id="num_order"></td>    
                                                 <td>
                                                     <!-- จำนวน -->
                                         <center>
@@ -232,6 +267,8 @@ function getemp_id($conn) {
         $("#order1").html('<option selected >กรุณาเลือกรหัสสั่งจอง</opition>');
         $("#v_order_id").html('<option selected >กรุณาเลือกชื่อบริษัท</opition>');
         $('#chOrder').change(function () {
+            $('#num_order').html('');
+            $("#order1").html('<option selected >กรุณาเลือกรหัสสั่งจอง</opition>');
             var venName = $('option:selected', this).attr('venName');
             $('#v_name').val(venName);
             $.ajax({
@@ -267,7 +304,10 @@ function getemp_id($conn) {
                 }
             });
         });
-
+        $('#order1').change(function () {
+            var price = $('option:selected', this).attr('tag');
+            $('#num_order').html(price);
+        });
     });
 
 </script>
