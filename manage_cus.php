@@ -50,6 +50,16 @@
                 
               </div>
             </li>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              เคลมสินค้า
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
+                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
+                
+              </div>
+            </li>
   
           </ul>
         </div>
