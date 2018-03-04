@@ -8,6 +8,8 @@ if (isset($_POST["FN"]) && !empty($_POST["FN"])) {
             break;
         case "get_p_name":get_p_name();
             break;
+        case "get_p_qoh":get_p_qoh();
+            break;
     }
 }
 
@@ -39,6 +41,19 @@ function get_p_name() {
             $output .= '<option tag="' . $row["v_deorder_units"] . '" value="' . $row["p_name"] . '">' . $row["p_name"] . '</option>';
         }
         echo $output;
+    }
+}
+
+function get_p_qoh() {
+    include('../service/connect_db.php');
+    if ($_POST['p_name'] == '') {
+        echo 0;
+    } else {
+        $sql = "SELECT p_qoh FROM product WHERE p_name='" . $_POST['p_name'] . "' ";
+        $result = mysqli_query($conn, $sql);
+        while ($row = mysqli_fetch_array($result)) {
+            echo $row["p_qoh"];
+        }
     }
 }
 

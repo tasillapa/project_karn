@@ -46,8 +46,8 @@
                 $sql = "INSERT INTO vendor_order(v_id,emp_id,v_order_date ,v_order_total) 
                             VALUES('$v_name','$emp_id2','$date_name','$show')";
 
-                $sql2 = "INSERT INTO  vendor_detail_order(v_order_id,p_name,v_deorder_units,v_deorder_price)
-                            VALUES('$ven_id','$order_name','$name_num1','$show_pri1')";
+                $sql2 = "INSERT INTO  vendor_detail_order(v_order_id,p_name,v_deorder_units,v_deorder_price) "
+                        . "VALUES('$ven_id','$order_name','$name_num1','$show_pri1')";
                     
                     $result = mysqli_query($conn,$sql) or die ("Error in query: $sql " .mysqli_error());
                     $result = mysqli_query($conn,$sql2) or die ("Error in query: $sql2 " .mysqli_error());
@@ -59,7 +59,7 @@
                 if($result){
                     
                         echo "<script language=\"JavaScript\">";
-                        echo "alert('Save Successfuly');window.location ='../manage_vendor.php';";
+                        echo "alert('Save Successfuly');window.location ='../detail_vendor.php';";
                         echo "</script>";
                 }
                 else{

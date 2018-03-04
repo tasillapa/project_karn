@@ -58,8 +58,8 @@
                                 เคลมสินค้า
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="detail_claim.php">แสดงข้อมูลการเคลม</a>
                                 <a class="dropdown-item" href="show_claim.php">เพิ่มข้อมูลการเคลม</a>
+                                <a class="dropdown-item" href="detail_claim.php">แสดงข้อมูลการเคลม</a>
 
                             </div>
                         </li>

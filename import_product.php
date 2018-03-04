@@ -130,11 +130,11 @@ function getemp_id($conn) {
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>วันเดือนปี</label>
-                                        <input type="date" class="form-control" required  name="date_name" id="date_name" >
+                                        <input type="date" class="form-control" required  name="v_mat_date" id="v_mat_date" >
                                     </div>
                                     <div class="col-md-6">
                                         <label >รหัสบิล</label>
-                                        <select id="chOrder" class="selectpicker form-control" name="v_order_id">
+                                        <select id="chOrder" class="selectpicker form-control" name="v_order_id" required>
                                             <?php
                                             include('service/connect_db.php');
                                             $sql = "SELECT * FROM vendor_order AS vo LEFT JOIN vendor_detail_order AS vdo ON vo.v_order_id = vdo.v_order_id LEFT JOIN vendor AS vd ON vo.v_id = vd.v_id";
@@ -142,7 +142,7 @@ function getemp_id($conn) {
 
                                             echo "<option value=''>เลือก</option>";
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                echo"<option number='{$row['v_deorder_units']}' v_name='{$row['v_name']}' price='{$row['v_order_total']}' value='{$row['v_order_id']}'>{$row['v_order_id']}</option>";
+                                                echo"<option p_name='{$row['p_name']}' v_id='{$row['v_id']}' number='{$row['v_deorder_units']}' v_name='{$row['v_name']}' price='{$row['v_order_total']}' value='{$row['v_order_id']}'>{$row['v_order_id']}</option>";
                                             }
                                             ?> 
                                         </select>
@@ -156,10 +156,12 @@ function getemp_id($conn) {
                                 </div>
                                 <div class="col-md-6">
                                     <!-- <label>รหัสพนักงาน</label>-->
-                                    <input  type="hidden" class="form-control"   id="emp_id2" name="emp_id2" value="<?php echo getemp_id($conn) ?>" readonly="readonly">
+                                    <input  type="hidden" class="form-control"   id="emp_id" name="emp_id" value="<?php echo getemp_id($conn) ?>" readonly="readonly">
                                     <label>ราคารวม</label>
                                     <input type="number" class="form-control"  name="price" id="price" readonly="readonly" >
                                     <input type="hidden" class="form-control"  name="v_deorder_units" id="v_deorder_units" readonly="readonly" >
+                                    <input type="hidden" class="form-control"  name="v_id" id="v_id" readonly="readonly" >
+                                    <input type="hidden" class="form-control"  name="p_name" id="p_name" readonly="readonly" >
 
                                 </div>
                             </div>
@@ -264,8 +266,20 @@ function getemp_id($conn) {
                             $('#v_name').val(v_name);
                             var price = $('option:selected', this).attr('price');
                             $('#price').val(price);
+                            var v_id = $('option:selected', this).attr('v_id');
+                            $('#v_id').val(v_id);
+                            var p_name = $('option:selected', this).attr('p_name');
+                            $('#p_name').val(p_name);
                             var v_deorder_units = $('option:selected', this).attr('number');
-                            $('#v_deorder_units').val(v_deorder_units);
+                            $.ajax({
+                                url: "get_data/get_vendor_id.php",
+                                method: "POST",
+                                data: {FN: 'get_p_qoh', p_name: p_name},
+                                success: function (data) {
+                                    $('#v_deorder_units').val(parseInt(data) + parseInt(v_deorder_units));
+                                }
+                            });
+
                         });
                     });
                 </script>
