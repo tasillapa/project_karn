@@ -35,8 +35,8 @@
                                 เกี่ยวกับการค้า
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="data_customs.php">ข้อมูลลูกค้า</a>
                                 <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+                                <a class="dropdown-item" href="data_customs.php">เเสดงข้อมูลลูกค้า</a>
 
                             </div>
                         </li>
@@ -47,16 +47,6 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                 <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
                                 <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
-
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                เคลมสินค้า
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
-                                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
 
                             </div>
                         </li>

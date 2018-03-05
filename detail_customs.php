@@ -20,16 +20,50 @@
 
   <body>
 
-    <!-- Navigation -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
-        <button type="button" class="btn btn-info" href="manage_vendor.php">back</button>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      </div>
-    </nav>
+   <!-- Navigation -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="manage_cus.php">Home</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                เกี่ยวกับการค้า
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="data_customs.php">ข้อมูลลูกค้า</a>
+                                <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                การสั่งซื้อ
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
+                                <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
+
+                            </div>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="send_product.php">ส่งสินค้า</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
+                            ออกจากระบบ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
     <!-- Page Content -->
     <div class="container">
@@ -42,60 +76,52 @@
       <!-- <h1 class="text-center">กรอกข้อมูลพนักงาน</h1> -->
 
       <div class="mt-4 mb-3">
-            <div class="row">
-              <div class="col-md-1">
+             <table width="100%" class="table table-hover" id="dataTables-example" border="2" >
+                            <?php
+                            include('service/connect_db.php');
+                            $sql = "SELECT * FROM customer_order AS co LEFT JOIN customer_detail_order AS cdo ON co.cus_order_id = cdo.cus_order_id LEFT JOIN customer AS ctm ON co.cus_id = ctm.cus_id LEFT JOIN product AS pd ON cdo.p_id = pd.p_id";
+                            $result = mysqli_query($conn, $sql);
 
-              </div>
-              <div class="col-md-10">
-              <table class="table">
-           
-              <thead>
-                <tr>
-                  <th scope="col">ลำดับ</th>
-                  <th scope="col">รายการ</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Username</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
-            </table>
-              </div>
-              <div class="col-md-1">
 
-              </div>
-            </div>
+
+                            echo "<tbody>";
+
+                            echo "<thead align='center' >  ";
+                            echo "<tr>";
+                            echo "<th scope='col'>" . "ลำดับ" . "</th>";
+                            echo "<th scope='col'>" . "รหัสบิล" . "</th>";
+                            echo "<th scope='col' width='20%'>" . "ชื่อลูกค้า" . "</th>";
+                            echo "<th scope='col'>" . "วัน/เดือน/ปี" . "</th>";
+                            echo "<th scope='col'>" . "รายการ" . "</th>";
+                            echo "<th scope='col'>" . "จำนวน" . "</th>";
+                            echo "<th scope='col'>" . "ราคารวม" . "</th>";
+                            echo "</thead>";
+                            echo "</tr>";
+                            $i = 1;
+                            while ($row = mysqli_fetch_array($result)) {
+
+
+                                echo "<tr align='center'>";
+                                echo "<th scope='col' style='width:7%'>" . $i . "</th>";
+                                echo "<td scope='col' style='width:8%'>" . $row["cus_order_id"] . "</td>";
+                                echo "<td scope='col' style='width:10%'>" . $row["cus_prefix"] . "" . $row["cus_fname"] . " " . $row["cus_lname"] . "</td>";
+                                echo "<td scope='col' style='width:10%'>" . $row["cus_order_date"] . "</td>";
+                                echo "<td scope='col' style='width:15%'>" . $row["p_name"] . "</td>";
+                                echo "<td scope='col' style='width:15%'>" . $row["cus_de_units"] . "</td>";
+                                echo "<td scope='col' style='width:15%'>" . $row["cus_order_total"] . "</td>";
+                                echo "</tr>";
+                                $i++;
+                            }
+
+
+
+                            echo "</tbody>";
+                            ?>
+                        </table>
         
        
     </div>
     <!-- /.container -->
-
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -31,7 +31,7 @@ if($num = 0){
     if($result){
 
             echo "<script language=\"JavaScript\">";
-            echo "alert('Save Successfuly');window.location ='../manage_cus.php';";
+            echo "alert('Save Successfuly');window.location ='../data_customs.php';";
             echo "</script>";
     }
     else{

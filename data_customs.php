@@ -21,59 +21,49 @@
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="manage_cus.php">Home</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              เกี่ยวกับการค้า
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
-                    <a class="dropdown-item" href="data_customs.php">แสดงข้อมูลลูกค้า</a>
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="manage_cus.php">Home</a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                เกี่ยวกับการค้า
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+                                <a class="dropdown-item" href="data_customs.php">เเสดงข้อมูลลูกค้า</a>
 
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              การสั่งซื้อ
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
-                <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                การสั่งซื้อ
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                                <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
+                                <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
 
-              </div>
-            </li>
-             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              เคลมสินค้า
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
-                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
-
-              </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">ส่งออกสินค้า</a>
-            </li>
-          </ul>
-        </div>
-
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
-                 ออกจากระบบ
-                </a>
-              </li>
-          </ul>
-      </div>
-    </nav>
+                            </div>
+                        </li>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="send_product.php">ส่งสินค้า</a>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
+                            ออกจากระบบ
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
     <div class="container">
 

@@ -8,10 +8,10 @@
   //  $order   = $_REQUEST["order"];
     $name_num1   = $_REQUEST["name_num1"];
     $show_pri  = $_REQUEST["show_pri"];
-    $emp_id2   = $_REQUEST["emp_id2"];
+    $cus_id   = $_REQUEST["cus_id"];
+    $COD  = $_REQUEST["COD"];
     $show   = $_REQUEST["show"];
       $p_id = $_REQUEST["p_id"];
-
 
 
 
@@ -27,10 +27,10 @@ if($num = 0){
     echo "</script>";
 }else{
     $sql = "INSERT INTO customer_order(cus_id,cus_order_total,cus_order_date)
-                    VALUES('$emp_id2','$show','$date_name')";
+                    VALUES('$cus_id','$show','$date_name')";
 
     $sql2 =   "INSERT INTO customer_detail_order(cus_de_units,cus_de_price ,p_id,cus_order_id)
-            VALUES('$name_num1','$show_pri','$p_id','$cus_id')";
+            VALUES('$name_num1','$show_pri','$p_id','$COD')";
 
     $result = mysqli_query($conn,$sql) or die ("Error in query: $sql " .mysqli_error());
 
@@ -38,7 +38,7 @@ if($num = 0){
     if($result && $result2 ){
 
             echo "<script language=\"JavaScript\">";
-            echo "alert('Save Successfuly');window.location ='../manage_cus.php';";
+            echo "alert('Save Successfuly');window.location ='../detail_customs.php';";
             echo "</script>";
     }
     else{

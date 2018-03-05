@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 
 include('service/connect_db.php');
 
@@ -63,7 +63,7 @@ function emp_id($conn){
                 <a class="nav-link -toggle" href="service/logout_emp.php"   aria-haspopup="true" aria-expanded="false">
                  ออกจากระบบ
                 </a>
-               
+
               </li>
           </ul>
         </div>
@@ -79,17 +79,17 @@ function emp_id($conn){
       </div>
 
       <!-- <h1 class="text-center">กรอกข้อมูลพนักงาน</h1> -->
-     
+
       <div class="mt-4 mb-3">
         <div class="jumbotron">
-            
-          <form name="add_data" action="add_data/add_emp.php" method="post" > 
+
+          <form name="add_data" action="add_data/add_emp.php" method="post" >
               <div class="form-group">
-    
+
 
                   <label >ID พนักงาน</label>
                   <input  disabled class="form-control"  name="random"   value="<?php echo emp_id($conn) ;?>"   >
-                 
+
 
                 </div>
                  <div class="form-group">
@@ -100,9 +100,8 @@ function emp_id($conn){
                         <option value="2">แผนกบัญชี</option>
                         <option value="3">แผนกสโตร์</option>
                         <option value="4">แผนกประกอบ</option>
-                        <option value="5">แผนกเชื่อม</option>
-                        <option value="6">แผนกเสียบครอย</option>
-                        <option value="7">แผนกปั๊ม</option>
+                        <option value="5">แผนกทรัพยากรบุคคล</option>
+
                       </select>
 
 
@@ -119,12 +118,12 @@ function emp_id($conn){
                       </select>
                   <!-- <label for="rank-id">ID ตำแหน่ง</label>
                   <input type="text" class="form-control"  required name="rank_id"  id="rank_id" placeholder="กรอกข้อมูล id ตำแหน่ง"> -->
-             </div> 
+             </div>
                <div class="form-group">
                 <div class="row">
                 <div class="col-md-2">
                 <label >คำนำหน้าชื่อ</label>
-                      <select class="selectpicker form-control"  required name="Mr_Mrs">
+                      <select id="mr" class="selectpicker form-control"   name="Mr_Mrs" required>
                       <option >เลือกคำนำหน้า</option>
                         <option >นาย</option>
                         <option >นาง</option>
@@ -139,7 +138,7 @@ function emp_id($conn){
                   <div class="col-md-5">
                     <label for="lname">นามสกุล</label>
                     <input type="text" class="form-control" required  name="lname"id="lname" placeholder="กรอกนามกุล พนักงาน" >
-                  </div> 
+                  </div>
                 </div>
               </div>
 
@@ -167,7 +166,7 @@ function emp_id($conn){
                     <div class="col-md-4">
                       <label for="nat-id">สัญชาติ</label>
                       <input type="text" class="form-control" required  name="nat_id"  id="nat_id" placeholder="กรอกข้อมูลสัญชาติ">
-                    </div> 
+                    </div>
                     <div class="col-md-4">
                         <label for="phone-id">เบอร์โทรศัพท์</label>
                         <input type="text" class="form-control" required  name="phone_id"id="phone_id" placeholder="กรอกเบอร์โทรศัพท์ ">
@@ -179,12 +178,12 @@ function emp_id($conn){
                       <div class="col-md-6">
                         <label for="date">วัน/เดือน/ปีเกิด</label>
                         <input type="date" class="form-control"required  name="date" id="date" placeholder="กรอก วัน/เดือน/ปีเกิด (2017-10-10)">
-                        
+
                       </div>
                       <div class="col-md-6">
                         <label for="account">เลขที่บัญชี</label>
                         <input type="text" class="form-control"  required name="account" id="account" placeholder="กรอก เลขที่บัญชี">
-                      </div> 
+                      </div>
                     </div>
                   </div>
                   <div class="form-group">
@@ -201,7 +200,7 @@ function emp_id($conn){
                         <div class="col-md-6">
                           <label for="social_se">ประกันสังคม</label>
                           <input type="text" class="form-control" required  name="social_se" id="social_se" placeholder="กรอก ข้อมูลประกันสังคม">
-                        </div> 
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
@@ -209,27 +208,35 @@ function emp_id($conn){
                           <div class="col-md-12">
                               <label for="date">วันเริ่มทำงาน</label>
                               <input type="date" class="form-control" required name="fday" id="fday" placeholder="กรอก วันเริ่มทำงาน">
-                          </div> 
+                          </div>
                         </div>
-                      </div>  
-                     
+                      </div>
+                      <div class="form-group">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <label for="date">เงินเดือน</label>
+                                <input type="number" class="form-control" required name="salary" id="salary" placeholder="กรอก เงินเดือน">
+                            </div>
+                          </div>
+                        </div>
+
                       <div class="row">
-                      <div class="col-md-3">     
+                      <div class="col-md-3">
                     </div>
                     <div class="col-md-3">
-                        <input type="submit" class="btn btn-lg btn-success btn-block"  name="add"  id="add" value="บันทึก">  
-                      </div>  
+                        <input type="submit" class="btn btn-lg btn-success btn-block"  name="add"  id="add" value="บันทึก">
+                      </div>
                           <div class="col-md-3">
-                              <input type="reset" class="btn btn-lg btn-danger btn-block" name="reset"  value="ยกเลิก">  
-                            </div>  
-                           <div class="col-md-3">       
-                        </div>     
-                  </div>     
+                              <input type="reset" class="btn btn-lg btn-danger btn-block" name="reset"  value="ยกเลิก">
+                            </div>
+                           <div class="col-md-3">
+                        </div>
+                  </div>
                     </form>
 
         </div>
     </div>
-    
+
 
     <!-- Footer -->
     <footer class="py-5 bg-dark">

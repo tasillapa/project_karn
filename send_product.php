@@ -69,8 +69,8 @@ function getemp_id($conn) {
                                 เกี่ยวกับการค้า
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="data_customs.php">ข้อมูลลูกค้า</a>
                                 <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+                                <a class="dropdown-item" href="data_customs.php">เเสดงข้อมูลลูกค้า</a>
 
                             </div>
                         </li>
@@ -81,16 +81,6 @@ function getemp_id($conn) {
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
                                 <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
                                 <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
-
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                เคลมสินค้า
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
-                                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
 
                             </div>
                         </li>
@@ -122,16 +112,34 @@ function getemp_id($conn) {
             <div class="mt-4 mb-3">
                 <div class="jumbotron" style="padding-top: 30px">
 
-                    <form name="add_vendor2" action="delete_data/del_update_import.php" method="post"> 
+                    <form name="add_vendor2" action="delete_data/del_update_send.php" method="post"> 
                         <input type="hidden" name="order_name" id="order_name">
                         <div class="form-group">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <label>วันเดือนปี</label>
-                                        <input type="date" class="form-control" required  name="v_mat_date" id="v_mat_date" >
+                                        <input type="date" class="form-control" required  name="p_del_date" id="p_del_date" >
                                     </div>
                                     <div class="col-md-6">
+                                        <label >รหัสบิล</label>
+                                        <select id="trans_id" class="selectpicker form-control" name="trans_id" required>
+                                            <?php
+                                            include('service/connect_db.php');
+                                            $sql = "SELECT * FROM transport";
+                                            $result = mysqli_query($conn, $sql);
+
+                                            echo "<option value=''>เลือก</option>";
+                                            while ($row = mysqli_fetch_assoc($result)) {
+                                                echo"<option value='{$row['trans_id']}'>{$row['trans_name']}</option>";
+                                            }
+                                            ?> 
+                                        </select>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
                                         <label >รหัสบิล</label>
                                         <select id="chOrder" class="selectpicker form-control" name="cus_order_id" required>
                                             <?php
@@ -141,27 +149,34 @@ function getemp_id($conn) {
 
                                             echo "<option value=''>เลือก</option>";
                                             while ($row = mysqli_fetch_assoc($result)) {
-                                                echo"<option p_name='{$row['p_name']}' v_id='{$row['v_id']}' number='{$row['v_deorder_units']}' cus_name='{$row['cus_name']}' price='{$row['v_order_total']}' value='{$row['cus_order_id']}'>{$row['cus_order_id']}</option>";
+                                                echo"<option p_name='{$row['p_name']}' cus_id='{$row['cus_id']}' cus_de_units='{$row['cus_de_units']}' cus_name='" . $row["cus_prefix"] . "" . $row["cus_fname"] . " " . $row["cus_lname"] . "' price='{$row['cus_order_total']}' value='{$row['cus_order_id']}'>{$row['cus_order_id']}</option>";
                                             }
                                             ?> 
                                         </select>
                                     </div> 
+                                <div class="col-md-6">
+                                    <label >ชื่อลูกค้า</label>
+                                    <input  type="text"    class="form-control"  name="cus_name" id="cus_name" value="" readonly="readonly">
+                                    <input  type="hidden" class="form-control"   id="emp_id" name="emp_id" value="<?php echo getemp_id($conn) ?>" readonly="readonly">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label >ชื่อลูกค้า</label>
-                                    <input  type="text"    class="form-control"  name="cus_name" id="cus_name" value="" readonly="readonly">
+                                    <label >สินค้า</label>
+                                    <input  type="text"    class="form-control"  name="p_name" id="p_name" value="" readonly="readonly">
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <!-- <label>รหัสพนักงาน</label>-->
                                     <input  type="hidden" class="form-control"   id="emp_id" name="emp_id" value="<?php echo getemp_id($conn) ?>" readonly="readonly">
+                                    <label>จำนวน</label>
+                                    <input type="number" class="form-control"  name="cus_de_units" id="cus_de_units" readonly="readonly" >
+                                    <input type="hidden" class="form-control"  name="cus_id" id="cus_id" readonly="readonly" >
+                                    <input type="hidden" class="form-control"  name="v_deorder_units" id="v_deorder_units" readonly="readonly" >
+                                </div>
+                                <div class="col-md-3">
+                                    <!-- <label>รหัสพนักงาน</label>-->
                                     <label>ราคารวม</label>
                                     <input type="number" class="form-control"  name="price" id="price" readonly="readonly" >
-                                    <input type="hidden" class="form-control"  name="v_deorder_units" id="v_deorder_units" readonly="readonly" >
-                                    <input type="hidden" class="form-control"  name="v_id" id="v_id" readonly="readonly" >
-                                    <input type="hidden" class="form-control"  name="p_name" id="p_name" readonly="readonly" >
-
                                 </div>
                             </div>
                         </div>
@@ -222,7 +237,7 @@ function getemp_id($conn) {
                                 echo "<tr align='center'>";
                                 echo "<th scope='col' style='width:7%'>" . $i . "</th>";
                                 echo "<td scope='col' style='width:8%'>" . $row["cus_order_id"] . "</td>";
-                                echo "<td scope='col' style='width:10%'>" . $row["cus_prefix"] ."". $row["cus_fname"] . " " . $row["cus_lname"] . "</td>";
+                                echo "<td scope='col' style='width:10%'>" . $row["cus_prefix"] . "" . $row["cus_fname"] . " " . $row["cus_lname"] . "</td>";
                                 echo "<td scope='col' style='width:10%'>" . $row["cus_order_date"] . "</td>";
                                 echo "<td scope='col' style='width:15%'>" . $row["p_name"] . "</td>";
                                 echo "<td scope='col' style='width:15%'>" . $row["cus_de_units"] . "</td>";
@@ -261,22 +276,24 @@ function getemp_id($conn) {
                 <script>
                     $(document).ready(function () {
                         $('#chOrder').change(function () {
-                           
+
                             var cus_name = $('option:selected', this).attr('cus_name');
                             $('#cus_name').val(cus_name);
                             var price = $('option:selected', this).attr('price');
                             $('#price').val(price);
-                            var v_id = $('option:selected', this).attr('v_id');
-                            $('#v_id').val(v_id);
+                            var cus_id = $('option:selected', this).attr('cus_id');
+                            $('#cus_id').val(cus_id);
                             var p_name = $('option:selected', this).attr('p_name');
                             $('#p_name').val(p_name);
-                            var v_deorder_units = $('option:selected', this).attr('number');
+                            var cus_de_units = $('option:selected', this).attr('cus_de_units');
+                            $('#cus_de_units').val(cus_de_units);
                             $.ajax({
                                 url: "get_data/get_vendor_id.php",
                                 method: "POST",
                                 data: {FN: 'get_p_qoh', p_name: p_name},
                                 success: function (data) {
-                                    $('#v_deorder_units').val(parseInt(data) + parseInt(v_deorder_units));
+                                    $('#v_deorder_units').val(parseInt(data) - parseInt(cus_de_units));
+                                    
                                 }
                             });
 
