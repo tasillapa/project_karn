@@ -29,13 +29,49 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              เกี่ยวกับการค้า
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+                    <a class="dropdown-item" href="data_customs.php">แสดงข้อมูลลูกค้า</a>
+
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              การสั่งซื้อ
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
+                <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
+
+              </div>
+            </li>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              เคลมสินค้า
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
+                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
+
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">ส่งออกสินค้า</a>
+            </li>
+          </ul>
+        </div>
+
+          <ul class="navbar-nav ml-auto">
               <li class="nav-item">
                 <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
                  ออกจากระบบ
                 </a>
               </li>
           </ul>
-        </div>
       </div>
     </nav>
 
@@ -126,30 +162,61 @@
   <!-- modal -->
 <script>
 function edit_modal(id){
+
+
   $.ajax({
         url:"load_data.php",
         type:"application/json",
         method:"POST",
-        data:{vv_id:id},
+        data:{edit_cus_modal:id},
 
         success:function(data){
         console.log(data);
 
-        $('#vendor_id').val(data[0].v_id);
-        $('#vendor_name').val(data[0].v_name);
-        $('#vendor_phone').val(data[0].v_phone);
-        $('#vendor_account').val(data[0].v_account);
-        $('#vendor_address').val(data[0].v_address);
-        $('#vendor_email').val(data[0].v_email);
+        $('#edit_cus_id').val(data[0].cus_id);
+        $('#edit_cus_prefix').val(data[0].cus_prefix);
+        $('#edit_cus_fname').val(data[0].cus_fname);
+        $('#edit_cus_lname').val(data[0].cus_lname);
+
+        $('#edit_cus_address').val(data[0].cus_address);
+        $('#edit_cus_phone').val(data[0].cus_phone);
+        $('#edit_cus_email').val(data[0].cus_email);
+        $('#edit_cus_accunt').val(data[0].cus_account);
 
 
         }
 });
 }
 
-function delete_modal(id2){
-$('#vendor_del_id').val(id2);
+function view_modal(id3){
+
+
+  $.ajax({
+        url:"load_data.php",
+        type:"application/json",
+        method:"POST",
+        data:{view_modal:id3},
+        success:function(data){
+
+        console.log(data);
+
+        $('#cus_id').val(data[0].cus_id);
+        $('#cus_fname').val(data[0].cus_prefix +" " +  data[0].cus_fname +" " +  data[0].cus_lname  );
+        $('#cus_address').val(data[0].cus_address);
+        $('#cus_phone').val(data[0].cus_phone);
+        $('#cus_email').val(data[0].cus_email);
+        $('#cus_account').val(data[0].cus_account);
+        }
+});
+
 }
+
+
+    function delete_modal(id2){
+
+        
+          $('#cus_del_id').val(id2);
+    }
 
 
   $(function(){
@@ -160,6 +227,7 @@ $('#vendor_del_id').val(id2);
 
 
   $(function(){
+
     $('.btn-info .btn-sm').on('click', function(){
     $('#view').modal('show');
     });
@@ -177,60 +245,56 @@ $('#vendor_del_id').val(id2);
  <div id="view" class="modal fade " role="dialog">
         <div class="modal-dialog modal-lg">
                 <div class="modal-content">
-                    <form method="post" action=""  role="form">
+                    <form method="post"   role="form">
                             <div class="modal-header" >
                                     <h2 class="modal-title" align="center">ดู</h2>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                            </div>
                             <div class="modal-body">
                                      <div class="form-group">
-                                            <label class="control-label col-sm-4" for="">รหัสผู้ค้า</label>
+                                            <label class="control-label col-sm-4" for="">รหัสลูกค้า</label>
                                                 <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="vendor_id" name="vendor_id" readonly="readonly">
+                                                        <input type="text" class="form-control" id="cus_id" name="cus_id" readonly="readonly">
                                                 </div>
-                                            <label class="control-label col-sm-4" for="">ชื่อผู้ค้า:</label>
+                                            <label class="control-label col-sm-4" for="">ชื่อลูกค้า</label>
                                                 <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="vendor_name" name="vendor_name" value=""  required="" autofocus="">
+                                                        <input type="hidden" class="form-control" id="cus_prefix" name="cus_prefix" readonly="readonly">
                                                 </div>
-                                            <label class="control-label col-sm-4" for="item_code">เบอร์โทรศัพท์:</label>
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_phone" name="vendor_phone" value=""required="">
+                                                        <input type="text" class="form-control" id="cus_fname" name="cus_fname" readonly="readonly">
                                                 </div>
-                                            <label class="control-label col-sm-4" for="item_code">เลขบัญชี:</label>
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_account" name="vendor_account" value=""required="">
+                                                        <input type="hidden" class="form-control" id="cus_lname" name="cus_lname" readonly="readonly">
                                                 </div>
-                                            <label class="control-label col-sm-4" for="item_code">ที่อยู่:</label>
+                                            <label class="control-label col-sm-4" for="item_code">ที่อยู่</label>
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_address" name="vendor_address" value=""required="">
+                                                    <input type="text" class="form-control" id="cus_address" name="cus_address" readonly="readonly">
                                                 </div>
-                                            <label class="control-label col-sm-4" for="item_code">อิเมลล์:</label>
+                                            <label class="control-label col-sm-4" for="item_code">เบอร์โทรศพท์:</label>
                                                 <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_email" name="vendor_email" value=""required="">
+                                                    <input type="text" class="form-control" id="cus_phone" name="cus_phone" readonly="readonly">
+                                                </div>
+                                            <label class="control-label col-sm-4" for="item_code">อิเมลล์</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="cus_email" name="cus_email" readonly="readonly">
+                                                </div>
+                                            <label class="control-label col-sm-4" for="item_code">เลขบัญชี</label>
+                                                <div class="col-sm-12">
+                                                    <input type="text" class="form-control" id="cus_account" name="cus_account" readonly="readonly">
                                                 </div>
                                             <br>
-
-                                            <div class="row">
-                                                <div class="col-sm-6" align="right">
-                                                        <button type="submit" class="btn btn-warning">บันทึก</button>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>
-                                                </div>
-
-                                    </div>
                             </div>
                     </form>
                 </div>
             </div>
     </div>
  </div>
-     
+
   <!-- /modal -->
 
  <div id="delete" class="modal fade" role="dialog">
             <div class="modal-dialog">
-                <form method="post"  action="delete_data/del_datavendor.php" role="form" >
+                <form method="post"  action="delete_data/del_data_cus_modal.php" role="form" >
                     <!-- Modal content-->
                     <div class="modal-content">
 
@@ -240,13 +304,13 @@ $('#vendor_del_id').val(id2);
                         </div>
 
                         <div class="modal-body">
-                            <input type="hidden"  id="vendor_del_id"name="vendor_del_id"  >
+                            <input type="hidden"  id="cus_del_id"name="cus_del_id"  >
                             <p>
-                                <div class="alert alert-danger">Are you Sure you want Delete ?</p>
+                                <div class="alert alert-danger">คุณต้องการลบข้อมูลใช่หรือ ไม่ ?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> YES</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span> NO</button>
+                                <button type="submit"  class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span>ตกลง</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove-circle"></span>ยกเลิก</button>
                             </div>
                         </div>
                 </form>
@@ -255,57 +319,71 @@ $('#vendor_del_id').val(id2);
         </div>
    <!--Edit Item Modal -->
 
-   <div id="edit" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <form method="post" action="edit_data/edit_datavendor.php"  role="form">
-                            <div class="modal-header" >
-                                    <h2 class="modal-title" align="center">แก้ไข</h2>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           </div>
-                            <div class="modal-body">
-                                     <div class="form-group">
-                                            <label class="control-label col-sm-4" for="">รหัสผู้ค้า</label>
-                                                <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="vendor_id" name="vendor_id" readonly="readonly">
-                                                </div>
-                                            <label class="control-label col-sm-4" for="">ชื่อผู้ค้า:</label>
-                                                <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="vendor_name" name="vendor_name" value=""  required="" autofocus="">
-                                                </div>
-                                            <label class="control-label col-sm-4" for="item_code">เบอร์โทรศัพท์:</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_phone" name="vendor_phone" value=""required="">
-                                                </div>
-                                            <label class="control-label col-sm-4" for="item_code">เลขบัญชี:</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_account" name="vendor_account" value=""required="">
-                                                </div>
-                                            <label class="control-label col-sm-4" for="item_code">ที่อยู่:</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_address" name="vendor_address" value=""required="">
-                                                </div>
-                                            <label class="control-label col-sm-4" for="item_code">อิเมลล์:</label>
-                                                <div class="col-sm-12">
-                                                    <input type="text" class="form-control" id="vendor_email" name="vendor_email" value=""required="">
-                                                </div>
-                                            <br>
+   <div id="edit" class="modal fade " role="dialog">
+          <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                      <form method="post"  action="edit_data/edit_datacus_modal.php"  role="form">
+                              <div class="modal-header" >
+                                      <h2 class="modal-title" align="center">แก้ไข</h2>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                             </div>
+                              <div class="modal-body">
+                                       <div class="form-group">
+                                              <label class="control-label col-sm-4" for="">รหัสลูกค้า</label>
+                                                  <div class="col-sm-12">
+                                                          <input type="text" class="form-control" id="edit_cus_id" name="edit_cus_id" readonly="readonly">
+                                                  </div>
+                                              <label class="control-label col-sm-4" for="">ชื่อลูกค้า</label>
+                                                <div class="row">
 
-                                            <div class="row">
-                                                <div class="col-sm-6" align="right">
-                                                        <button type="submit" class="btn btn-warning">บันทึก</button>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>
+                                                  <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="edit_cus_prefix" name="edit_cus_prefix" >
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="edit_cus_fname" name="edit_cus_fname" >
+                                                  </div>
+                                                  <div class="col-sm-4">
+                                                          <input type="text" class="form-control" id="edit_cus_lname" name="edit_cus_lname" >
+                                                  </div>
                                                 </div>
 
-                                    </div>
-                            </div>
-                    </form>
-                </div>
-            </div>
-    </div>
-  <!-- /modal -->
+
+                                              <label class="control-label col-sm-4" for="item_code">ที่อยู่</label>
+                                                  <div class="col-sm-12">
+                                                      <input type="text" class="form-control" id="edit_cus_address" name="edit_cus_address" >
+                                                  </div>
+                                              <label class="control-label col-sm-4" for="item_code">เบอร์โทรศพท์:</label>
+                                                  <div class="col-sm-12">
+                                                      <input type="text" class="form-control" id="edit_cus_phone" name="edit_cus_phone" >
+                                                  </div>
+                                              <label class="control-label col-sm-4" for="item_code">อิเมลล์</label>
+                                                  <div class="col-sm-12">
+                                                      <input type="text" class="form-control" id="edit_cus_email" name="edit_cus_email" >
+                                                  </div>
+                                              <label class="control-label col-sm-4" for="item_code">เลขบัญชี</label>
+                                                  <div class="col-sm-12">
+                                                      <input type="text" class="form-control" id="edit_cus_accunt" name="edit_cus_accunt" >
+                                                  </div>
+                                              <br>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-sm-6" align="right">
+                                          <button type="submit" class="btn btn-warning">บันทึก</button>
+                                  </div>
+                                  <div class="col-sm-6">
+                                          <button type="button" class="btn btn-danger" data-dismiss="modal" >ยกเลิก</button>
+                                  </div>
+
+                      </div>
+
+
+                      </form>
+                  </div>
+              </div>
+      </div>
+   </div>
+
 
 
 

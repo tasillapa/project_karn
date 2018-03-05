@@ -146,7 +146,7 @@ function getemp_id($conn) {
                                 </div>
                                 <div class="col-md-6">
                                     <label >ชื่อบริษัท</label>
-                                    <select id="chOrder" class="selectpicker form-control" name="v_id">
+                                    <select id="chOrder" class="selectpicker form-control" name="v_id" required>
                                         <?php
                                         include('service/connect_db.php');
                                         $sql = "SELECT * FROM vendor AS vd INNER JOIN vendor_order AS vo ON vd.v_id = vo.v_id";
@@ -168,7 +168,7 @@ function getemp_id($conn) {
                                 </div>
                                 <div class="col-md-6">
                                     <label >รหัสสั่งจอง</label>
-                                    <select class="selectpicker form-control" name="v_order_id" id="v_order_id">	
+                                    <select class="selectpicker form-control" name="v_order_id" id="v_order_id" required>	
                                     </select>
                                 </div> 
                             </div>
@@ -203,18 +203,16 @@ function getemp_id($conn) {
   <!-- <th scope="row">1</th> -->
                                                 <td align="center" id="number_row" value="1" readonly="readonly" >1</td>
                                                   <!-- <input type="number" id="number_row" value="1" readonly="readonly" > -->
-
-
                                                 <td>
                                                     <!-- รายการ -->
-                                                    <select class="selectpicker form-control" name="order1" id="order1">
+                                                    <select class="selectpicker form-control" name="order1" id="order1" required>
                                                     </select>
                                                 </td>
                                                 <td  align="center" id="num_order"></td>    
                                                 <td>
                                                     <!-- จำนวน -->
                                         <center>
-                                            <input type="text" class="form-control" name="v_declaim_quantity" id="v_declaim_quantity" required>
+                                            <input type="text" class="form-control" name="v_declaim_quantity" id="v_declaim_quantity" onkeyup="check_clam()" required>
                                         </center>
                                         </td>
                                         </tr>
@@ -262,11 +260,20 @@ function getemp_id($conn) {
 </html>
 <!-- function table -->
 <script>
+    function check_clam(){ 
+       if($('#num_order').html() != ''){
+        if($('#v_declaim_quantity').val()> $('#num_order').html()){
+            alert('คุณกรอกจำนวนเคลมเกินจำนวนสินค้าที่มีอยู่ !! กรุณากรอกใหม่อีกครั้ง');
+        }
+       }
+    
+    }
     $(document).ready(function () {
 
         $("#order1").html('<option selected >กรุณาเลือกรหัสสั่งจอง</opition>');
         $("#v_order_id").html('<option selected >กรุณาเลือกชื่อบริษัท</opition>');
         $('#chOrder').change(function () {
+        $("#v_declaim_quantity").val('');
             $('#num_order').html('');
             $("#order1").html('<option selected >กรุณาเลือกรหัสสั่งจอง</opition>');
             var venName = $('option:selected', this).attr('venName');

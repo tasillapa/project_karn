@@ -1,5 +1,5 @@
 
-<?php session_start(); 
+<?php session_start();
 
 include('service/connect_db.php');
 function getemp_name($conn)
@@ -8,29 +8,29 @@ function getemp_name($conn)
   $sdd = $_SESSION['mem_password'];
   $sql = " SELECT * FROM employee JOIN member WHERE emp_id=$sdd LIMIT 1 ";
   $result = mysqli_query($conn,$sql);
-  
+
   while($row = mysqli_fetch_array($result)){
-           
+
             echo  $row["emp_name_title"]." ".$row['emp_fname']." ".$row['emp_lname'];
-         
+
   }
-  
+
 }
 
 function getemp_id($conn)
 {
-  
+
   $sdd = $_SESSION['mem_password'];
   $sql = " SELECT * FROM employee JOIN member WHERE emp_id=$sdd LIMIT 1 ";
   $result = mysqli_query($conn,$sql);
-  
+
   while($row = mysqli_fetch_array($result)){
-           
-          
+
+
            echo $row["emp_id"];
-          
+
   }
-  
+
 }
 
 ?>
@@ -57,7 +57,7 @@ function getemp_id($conn)
     <!-- Custom styles for this template -->
     <link href="css/modern-business.css" rel="stylesheet">
 
- 
+
   </head>
 
 
@@ -70,6 +70,50 @@ function getemp_id($conn)
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              เกี่ยวกับการค้า
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="show_addcus.php">เพิ่มข้อมูลลูกค้า</a>
+                    <a class="dropdown-item" href="data_customs.php">แสดงข้อมูลลูกค้า</a>
+
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="ordor_vendor.php" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              การสั่งซื้อ
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="order_customs.php">การสั่งซื้อ</a>
+                <a class="dropdown-item" href="detail_customs.php">แสดงการสั่งซื้อ</a>
+
+              </div>
+            </li>
+             <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              เคลมสินค้า
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+                <a class="dropdown-item" href="#">เพิ่มข้อมูลการเคลม</a>
+                <a class="dropdown-item" href="#">แสดงข้อมูลการเคลม</a>
+
+              </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">ส่งออกสินค้า</a>
+            </li>
+          </ul>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link -toggle" href="service/logout_emp.php" id=""  aria-haspopup="true" aria-expanded="false">
+               ออกจากระบบ
+              </a>
+            </li>
+        </ul>
       </div>
     </nav>
 
@@ -85,28 +129,28 @@ function getemp_id($conn)
 
       <div class="mt-4 mb-3">
         <div class="jumbotron">
-            
-          <form  action="add_data/add_cus.php" method="post" > 
+
+          <form  action="add_data/add_cus.php" method="post" >
               <div class="form-group">
-              <?php 
+              <?php
               include('service/connect_db.php');
               function runnum($conn){
                 $sql = " SELECT * FROM customer ORDER BY  cus_id  DESC LIMIT 0,1 ";
                 $result = mysqli_query($conn,$sql);
-              
+
                   while($row = mysqli_fetch_assoc($result)){
-                    
+
                     echo  $row['cus_id'] +1 ;
-              
+
                   }
 
               }
               ?>
                     <div class="row">
                           <div class="col-md-12">
-                            
+
                             <label>รหัสบิลลูกค้า</label>
-                            
+
                             <input type="text" class="form-control"  name="random_id"  id="random_id"  value="<?php echo runnum($conn) ;?>" readonly="readonly">
                           </div>
                     </div>
@@ -115,7 +159,7 @@ function getemp_id($conn)
                             <br>
                           <label >คำนำหน้าชื่อ</label>
                           <select class="selectpicker form-control"  required name="prefix">
-                          <option >เลือก</option>
+                          <option  >เลือก</option>
                             <option  value="นาย">นาย</option>
                             <option  value="นาง">นาง</option>
                             <option  value= "นางสาว">นางสาว</option>
@@ -125,14 +169,14 @@ function getemp_id($conn)
                           <br>
                             <label>ชื่อ</label>
                             <input type="text" class="form-control" required name="name_cus" id="name_cus" placeholder="กรอกชื่อลูกค้า" autofocus>
-                          </div> 
+                          </div>
                           <div class="col-md-5">
                           <br>
                             <label >นามสกุล </label>
                             <input type="text" class="form-control" required name="cus_lname" id="cus_lname" placeholder="กรอกนามสกุล ลูกค้า " >
                           </div>
                     </div>
-                   
+
 
               </div>
               <div class="form-group">
@@ -144,7 +188,7 @@ function getemp_id($conn)
                   <div class="col-md-6">
                     <label >เบอร์โทรศัพท์</label>
                     <input type="text" class="form-control" required name="mem_cus" id="mem_cus" placeholder="กรอกเบอร์โทรศัพท์" >
-                  </div> 
+                  </div>
                 </div>
               </div>
               <div class="form-group">
@@ -156,7 +200,7 @@ function getemp_id($conn)
                   <div class="col-md-6">
                   <label >เลขบัญชี</label>
                     <input type="text" class="form-control" required name="acc_num" id="acc_num" placeholder="กรอกเลขบัญชี" >
-                  </div> 
+                  </div>
                 </div>
               </div>
 
@@ -170,24 +214,24 @@ function getemp_id($conn)
                     <label >รหัสพนักงาน</label>
                     <input type="text" class="form-control" required name="id_cus" id="id_cus" readonly="readonly" value="<?php echo getemp_id($conn)?>">
                   </div>
-                  
+
                 </div>
               </div>
-                 
+
               <div class="row">
-                      <div class="col-md-3">     
+                      <div class="col-md-3">
                     </div>
                     <div class="col-md-3">
-                        <input type="submit" class="btn btn-lg btn-success btn-block" name="add"  value="บันทึก">  
-                      </div>  
+                        <input type="submit" class="btn btn-lg btn-success btn-block" name="add"  value="บันทึก">
+                      </div>
                           <div class="col-md-3">
-                              <input type="reset" class="btn btn-lg btn-danger btn-block"  name="reset" value="ยกเลิก">  
-                            </div>  
-                           <div class="col-md-3">       
-                        </div>     
-                  </div>     
+                              <input type="reset" class="btn btn-lg btn-danger btn-block"  name="reset" value="ยกเลิก">
+                            </div>
+                           <div class="col-md-3">
+                        </div>
+                  </div>
             </div>
-              
+
           </form>
 
         </div>

@@ -31,10 +31,10 @@ if(isset($_POST["p_id"]))
 }
 if(isset($_POST["v_id"]))
 {
-    
+
         if($_POST["v_id"] != '')
         {
-            $sql = "SELECT pro.p_price,pro.p_name FROM vendor as vd right join product as pro 
+            $sql = "SELECT pro.p_price,pro.p_name FROM vendor as vd right join product as pro
             on vd.v_id = pro.v_id WHERE vd.v_id = '".$_POST["v_id"]."'";
 
         }
@@ -47,51 +47,24 @@ if(isset($_POST["v_id"]))
         $i = 0;
         while($row = mysqli_fetch_array($result))
         {
-          
+
           $output[$i] ="price:".$row["p_price"] ."name:".$row["p_name"];
           $output[$i] = "<tr class='prototype' id='tr_table'><tr>";
           $output[$i] = "<td align='center'id='number_row' value='1' readonly='readonly' ><td>";
           $output[$i] =  "<td>";
-        //   $output[$i] =  "<div id='order_orner'> "</div>";
-        //   $output[$i] =  "<select class='selectpicker form-control' name='order1' id='order1' >"      
-        //   "<option>"show order"</option>"
-          
 
-
-          
-        //   " </select>";
-
-           
-                
-                    
-                     
-        //         </select>
-        //     </td>
-        //     <td>
-        //     <!-- จำนวน -->
-        //     <center>
-        //     <input type="text" class="form-control" name="name_num1" id="num1" value=0  onKeyUp="cal('order','num1','show_pri')" >
-        //     </center>
-        //     </td>
-        //     <td>
-        //         <div align="center" >
-        //           <input  type="text" class="form-control"  id="show_pri1" name="show_pri1" readonly="readonly">
-        //         </div>
-        //     </td>
-              
-        //   </tr>
          $i++;
         }
         print_r($output);
         exit();
-        
+
 
 }
 
 //edit_model_datavendor//
 if(isset($_POST["vv_id"]))
 {
-   
+
         if($_POST["vv_id"] != '')
         {
             $sql = "SELECT * FROM vendor  WHERE v_id = '".$_POST["vv_id"]."'";
@@ -121,14 +94,14 @@ if(isset($_POST["vv_id"]))
         if($_POST["del_data"] != '')
         {
             $sql = "SELECT * FROM vendor  WHERE v_id = '".$_POST["del_data"]."'";
-            
+
 
 
         }
         else
         {
             echo "";
-            
+
         }
         $result = mysqli_query($conn,$sql);
 
@@ -148,13 +121,13 @@ if(isset($_POST["vv_id"]))
 //edit_model_datavendor//
 if(isset($_POST["emp_data"]))
 {
-   
+
         if($_POST["emp_data"] != '')
         {
             // $sql = "SELECT * FROM employee  WHERE employee.emp_id  = '".$_POST["emp_data"]."'";
-            
+
             $sql = "SELECT * FROM employee JOIN rank ON rank.rank_id = employee.rank_id  JOIN department ON department.dep_id = employee.dep_id WHERE employee.emp_id  = '".$_POST["emp_data"]."'";
-			
+
 
 		}
         else{
@@ -180,6 +153,77 @@ if(isset($_POST["emp_data"]))
 }
 //edit_model_datavendor//
 
+//view_modal
+if(isset($_POST["view_modal"])){
+
+    if($_POST["view_modal"] != '')
+    {
+        $sql = "SELECT * FROM customer  WHERE cus_id = '".$_POST["view_modal"]."'";
+
+
+
+    }
+    else
+    {
+        echo "ผิด";
+
+    }
+
+    $result = mysqli_query($conn,$sql);
+
+    $output = [];
+
+    while($row = mysqli_fetch_array($result))
+    {
+      array_push($output , ['cus_id' => $row["cus_id"],
+                            'cus_prefix' => $row["cus_prefix"] ,
+                            'cus_fname' => $row["cus_fname"],
+                            'cus_lname' => $row["cus_lname"],
+                            'cus_address' => $row["cus_address"],
+                            'cus_phone' => $row["cus_phone"],
+                            'cus_email' => $row["cus_email"],
+                            'cus_account' => $row["cus_account"],
+                            'emp_id' => $row["emp_id"]]);
+
+    }
+    echo  json_encode($output);
+}
+
+//view_modal
+if(isset($_POST["edit_cus_modal"])){
+
+    if($_POST["edit_cus_modal"] != '')
+    {
+        $sql = "SELECT * FROM customer  WHERE cus_id = '".$_POST["edit_cus_modal"]."'";
+
+
+
+    }
+    else
+    {
+        echo "ผิด";
+
+    }
+
+    $result = mysqli_query($conn,$sql);
+
+    $output = [];
+
+    while($row = mysqli_fetch_array($result))
+    {
+      array_push($output , ['cus_id' => $row["cus_id"],
+                            'cus_prefix' => $row["cus_prefix"] ,
+                            'cus_fname' => $row["cus_fname"],
+                            'cus_lname' => $row["cus_lname"],
+                            'cus_address' => $row["cus_address"],
+                            'cus_phone' => $row["cus_phone"],
+                            'cus_email' => $row["cus_email"],
+                            'cus_account' => $row["cus_account"],
+                            'emp_id' => $row["emp_id"]]);
+
+    }
+    echo  json_encode($output);
+}
 
 
 ?>
